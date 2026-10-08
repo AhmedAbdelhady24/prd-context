@@ -40,4 +40,4 @@ server/.venv/bin/python tests/check.py
 server/.venv/bin/python tests/review_checks.py
 ```
 
-Codex passed the ten golden questions, skill-trigger tests, and native hook checks. Optional clients have separate qualification limits. See [verification status](evals/cross_agent/status.md) and [detailed setup, adapters, and hook limits](docs/setup.md).
+Codex passed the ten golden questions, skill-trigger tests, and native hook checks. Optional clients have separate qualification limits. See [verification status](evals/cross_agent/status.md), the [live workflow test](docs/testing.md), and [detailed setup](docs/setup.md).

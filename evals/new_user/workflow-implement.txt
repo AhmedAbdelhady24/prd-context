@@ -1,0 +1,5 @@
+Implemented REQ-DEMO-001 in [demo/shipping.py](DISPOSABLE_CHECKOUT/demo/shipping.py) and [demo/test_shipping.py](DISPOSABLE_CHECKOUT/demo/test_shipping.py), following queried evidence at [prds/user-test.md:19–32](DISPOSABLE_CHECKOUT/prds/user-test.md:19).
+
+`python3 -m unittest demo.test_shipping -v` passed all four subtests: 0, 99, 100, 101, checking exact integer types and values.
+
+No dependencies, invalid-input policy, or PRD edits added. Invalid-input behavior remains unspecified in the cited requirement.

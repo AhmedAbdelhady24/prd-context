@@ -118,6 +118,9 @@ def search(query, limit=3, timeout=10):
             # Exact identifier, not FTS token fragments (REQ-AUTH-001 != REQ-AUTH-002).
             rows = conn.execute("SELECT * FROM chunks").fetchall()
             rows = [r for r in rows if set(ids) & set(REQ.findall((r['heading'] + '\n' + r['body']).upper()))]
+            # An authored PRD often cites its REQ ID in several context sections.
+            # Serve the requirement itself before those cross-references.
+            rows.sort(key=lambda row: not set(ids).intersection(REQ.findall(row["heading"].upper())))
         else:
             expression = " OR ".join('"' + w + '"' for w in words)
             rows = conn.execute("SELECT * FROM chunks WHERE chunks MATCH ? ORDER BY bm25(chunks)", (expression,))

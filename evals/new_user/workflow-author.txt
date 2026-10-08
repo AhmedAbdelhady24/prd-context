@@ -1,0 +1,5 @@
+Created only [prds/user-test.md](DISPOSABLE_CHECKOUT/prds/user-test.md:1) as a draft, with Test Owner, REQ-DEMO-001, and all four Given/When/Then checks ([lines 19–28](DISPOSABLE_CHECKOUT/prds/user-test.md:19)).
+
+Approved evidence was queried; the behavior is not documented.
+
+No approval, implementation or runtime tests performed. The fixture remains synthetic and unapproved.

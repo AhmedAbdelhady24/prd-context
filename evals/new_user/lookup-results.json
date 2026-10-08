@@ -1,0 +1,50 @@
+[
+  {
+    "tool": "codex",
+    "id": "g01",
+    "exit_code": 0,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": true,
+    "answer_matches": true,
+    "citation_matches": true,
+    "refused": false,
+    "verdict": "pass"
+  },
+  {
+    "tool": "codex",
+    "id": "g07",
+    "exit_code": 0,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": true,
+    "answer_matches": true,
+    "citation_matches": true,
+    "refused": true,
+    "verdict": "pass"
+  },
+  {
+    "tool": "codex",
+    "id": "g09",
+    "exit_code": 0,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": true,
+    "answer_matches": true,
+    "citation_matches": null,
+    "refused": true,
+    "verdict": "pass"
+  },
+  {
+    "tool": "codex",
+    "id": "g10",
+    "exit_code": 0,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": true,
+    "answer_matches": true,
+    "citation_matches": null,
+    "refused": true,
+    "verdict": "pass"
+  }
+]

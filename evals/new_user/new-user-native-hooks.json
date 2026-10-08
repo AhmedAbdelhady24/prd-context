@@ -1,0 +1,26 @@
+{
+  "hooks": [
+    {
+      "eventName": "sessionStart",
+      "status": "completed"
+    },
+    {
+      "eventName": "userPromptSubmit",
+      "status": "completed"
+    },
+    {
+      "eventName": "preToolUse",
+      "status": "completed"
+    },
+    {
+      "eventName": "postToolUse",
+      "status": "completed"
+    },
+    {
+      "eventName": "stop",
+      "status": "completed"
+    }
+  ],
+  "index_matches_patch": true,
+  "approved_warning_delivered": true
+}

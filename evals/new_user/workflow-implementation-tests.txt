@@ -1,0 +1,6 @@
+test_req_demo_001_acceptance_criteria (test_shipping.ShippingFeeTests.test_req_demo_001_acceptance_criteria) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK

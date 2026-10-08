@@ -1,0 +1,5 @@
+Created only [prds/user-test.md](DISPOSABLE_CHECKOUT/prds/user-test.md) as an unapproved draft, with Test Owner, REQ-DEMO-001, all four Given/When/Then checks, and explicit scope exclusions.
+
+Approved-context query returned no evidence: not documented.
+
+No code implemented or tests run; the draft is not approved policy.

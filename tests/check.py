@@ -46,6 +46,12 @@ def main():
         assert reindex()["changed"] == 0
         rows = search("REQ-AUTH-001")
         assert len(rows) == 1 and rows[0]["citation"].endswith("/current.md:4-5")
+        references = ''.join(f"## Context {i}\nCross-reference to REQ-AUTH-001.\n" for i in range(4))
+        (corpus / "current.md").write_text(approved.replace("## REQ-AUTH-001", references + "## REQ-AUTH-001"))
+        reindex()
+        assert search("REQ-AUTH-001", limit=1)[0]["heading"] == "REQ-AUTH-001 Login", "Context mentions crowded out the requirement"
+        (corpus / "current.md").write_text(approved)
+        reindex()
         assert not search("REQ-AUTH-0010")
         assert not answer_context("REQ-MISSING-999")["documented"]
         assert status("---\nstatus: approved\nstatus: draft\n---\n") == "unknown"

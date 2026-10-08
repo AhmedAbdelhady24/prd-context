@@ -1,0 +1,5 @@
+Updated only [prds/user-test.md](DISPOSABLE_CHECKOUT/prds/user-test.md:2): document and requirement approved, approval statements consistent, and fixture-only approval recorded in change history (lines 40–42).
+
+Verified REQ-DEMO-001, its rule, and all four boundary criteria remain unchanged (lines 19–28). Existing approved context was not documented.
+
+No implementation or reindexing performed. Approval remains fixture-only, with no production-policy authority.
