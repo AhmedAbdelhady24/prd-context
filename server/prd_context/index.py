@@ -5,7 +5,7 @@ import os
 import re
 import sqlite3
 import time
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from pathlib import Path
 
 DEFAULT_DIR = Path(__file__).resolve().parents[2] / "prds"
@@ -52,7 +52,8 @@ def database(timeout=10):
     # ponytail: global index lock; introduce shared read locks if measured contention matters.
     root, db = paths()
     with file_lock(Path(str(db) + ".lock"), timeout):
-        with sqlite3.connect(db, timeout=timeout) as conn:
+        # Connection context managers commit/rollback but do not close SQLite handles.
+        with closing(sqlite3.connect(db, timeout=timeout)) as conn, conn:
             conn.row_factory = sqlite3.Row
             conn.executescript("""
                 CREATE TABLE IF NOT EXISTS files(path TEXT PRIMARY KEY, digest TEXT NOT NULL);

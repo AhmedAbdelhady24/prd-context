@@ -9,6 +9,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -60,6 +61,8 @@ def run(tool, case, timeout=180):
         raw = raw.decode(errors="replace") if isinstance(raw, bytes) else raw
         stderr = stderr.decode(errors="replace") if isinstance(stderr, bytes) else stderr
         code = 124
+    except OSError as exc:
+        raw, stderr, code = "", str(exc), 127
     (OUT / f"{name}.jsonl").write_text(raw)
     (OUT / f"{name}.stderr").write_text(stderr)
     final = response(raw)
@@ -125,6 +128,21 @@ def run(tool, case, timeout=180):
     return result
 
 
+def failed(result):
+    """Evaluate only this invocation, rather than historical merged results."""
+    if result["exit_code"] != 0:
+        return True
+    if "verdict" in result:
+        return result["verdict"] != "pass"
+    if result["id"] == "smoke":
+        return not result["mcp_succeeded"]
+    if result["id"].startswith("trigger-"):
+        business = "business" in result["id"]
+        return (result["skill_observed"] != business or result["mcp_observed"] != business
+                or (business and not result["mcp_succeeded"]))
+    return not result["response"].strip()
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--stage", choices=["smoke", "golden", "trigger", "review", "all"], default="all")
@@ -139,8 +157,13 @@ def main():
     jobs = []
     if args.stage in ("all", "smoke"):
         # Save the exact requested listing, including untrusted-project visibility limitations.
-        listing = subprocess.run(["codex", "mcp", "list"], cwd=ROOT, capture_output=True, text=True)
-        (OUT / "codex-mcp-list.txt").write_text(listing.stdout + listing.stderr)
+        if "codex" in args.tools:
+            try:
+                listing = subprocess.run(["codex", "mcp", "list"], cwd=ROOT, capture_output=True, text=True)
+                text = listing.stdout + listing.stderr
+            except OSError as exc:
+                text = str(exc)
+            (OUT / "codex-mcp-list.txt").write_text(text)
         jobs += [(tool, {"id": "smoke", "question": "Using the prd tools, what are the acceptance criteria for REQ-AUTH-001? Cite the source."}) for tool in args.tools]
     if args.stage in ("all", "golden"):
         jobs += [(tool, case) for case in golden if not args.cases or case["id"] in args.cases for tool in args.tools]
@@ -168,8 +191,11 @@ def main():
             jobs.append((tool, {"id": "review", "question": prompt}))
     if args.cases:
         jobs = [job for job in jobs if job[1]["id"] in args.cases]
+    if not jobs:
+        parser.error("No evaluation cases selected for this stage/client combination")
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.workers) as pool:
         results = list(pool.map(lambda job: run(*job, timeout=args.timeout), jobs))
+    failures = [r for r in results if failed(r)]
     target = OUT / f"{args.stage}-results.json"
     previous = json.loads(target.read_text()) if target.exists() else []
     merged = {(r["tool"], r["id"]): r for r in previous}
@@ -193,7 +219,10 @@ def main():
             if r["id"].startswith("trigger-"):
                 lines.append(f"| {r['tool']} | {r['id']} | {r['skill_observed']} | {'business' in r['id']} | {r['mcp_observed']} | {r['exit_code']} |")
         (OUT / "triggers.md").write_text('\n'.join(lines) + '\n')
+    if failures:
+        print("Checks need review: " + ", ".join(f"{r['tool']}-{r['id']}" for r in failures), file=sys.stderr)
+    return 1 if failures else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

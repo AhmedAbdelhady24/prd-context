@@ -1,5 +1,5 @@
 name: PRD context checks
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -10,3 +10,4 @@ jobs:
       - run: python3 scripts/sync_adapters.py --check
       - run: python3 scripts/sync_adapters.py
       - run: server/.venv/bin/python tests/check.py
+      - run: server/.venv/bin/python tests/review_checks.py

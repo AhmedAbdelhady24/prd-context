@@ -19,6 +19,12 @@ OUT = ROOT / "evals/cross_agent"
 
 
 def main():
+    config = json.loads((ROOT / "core/config.json").read_text())
+    expected = {"PRD_DIR": ROOT / "prds", "PRD_DB": ROOT / ".cache/prd_index.db"}
+    if any((ROOT / Path(config[key]).expanduser()).resolve() != value.resolve()
+           for key, value in expected.items()):
+        raise RuntimeError("Run the native fixture check in a checkout using the default synthetic corpus/index settings")
+    OUT.mkdir(parents=True, exist_ok=True)
     before = {p: p.read_bytes() for p in (ROOT / "prds").rglob("*.md")}
     fixture = ROOT / "prds" / f"hook-check-{uuid.uuid4().hex}.md"
     fixture.write_text('---\nstatus: approved\n---\n# Disposable hook fixture\n\n'
