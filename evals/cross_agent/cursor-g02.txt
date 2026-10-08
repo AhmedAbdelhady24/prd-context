@@ -1,0 +1,12 @@
+Per **REQ-AUTH-002** (Password policy), the minimum password length is **12 characters**.
+
+**Source:** `auth.md:12-15`
+> "Passwords contain at least 12 characters."
+
+(The same section also notes password reset links expire after 30 minutes and are single-use, but that's unrelated to length.)
+Per **REQ-AUTH-002** (Password policy), the minimum password length is **12 characters**.
+
+**Source:** `auth.md:12-15`
+> "Passwords contain at least 12 characters."
+
+(The same section also notes password reset links expire after 30 minutes and are single-use, but that's unrelated to length.)

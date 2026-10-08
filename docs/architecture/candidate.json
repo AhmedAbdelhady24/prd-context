@@ -1,0 +1,169 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "PRD Context: one core, one index",
+    "quality_profile": "showcase",
+    "output": "docs/architecture/prd-context.html",
+    "viewBox": [
+      1130,
+      700
+    ]
+  },
+  "components": [
+    {
+      "id": "core",
+      "type": "backend",
+      "label": "Canonical skills",
+      "sublabel": "core/skills + AGENTS.md",
+      "pos": [
+        70,
+        70
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "adapters",
+      "type": "backend",
+      "label": "Adapter generator",
+      "sublabel": "sync_adapters.py",
+      "pos": [
+        430,
+        70
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "codex",
+      "type": "frontend",
+      "label": "Codex",
+      "sublabel": "Native skills + MCP config",
+      "pos": [
+        790,
+        70
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "hooks",
+      "type": "backend",
+      "label": "Shared hooks",
+      "sublabel": "JSON adapters + PRD CLI",
+      "pos": [
+        430,
+        300
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "mcp",
+      "type": "backend",
+      "label": "Python MCP server",
+      "sublabel": "Evidence lookup + reindex",
+      "pos": [
+        790,
+        300
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "owner",
+      "type": "external",
+      "label": "Product owner",
+      "sublabel": "Approves business decisions",
+      "pos": [
+        70,
+        530
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "prds",
+      "type": "database",
+      "label": "PRD corpus",
+      "sublabel": "Only approved evidence",
+      "pos": [
+        430,
+        530
+      ],
+      "size": [
+        240,
+        80
+      ]
+    },
+    {
+      "id": "index",
+      "type": "database",
+      "label": "Shared SQLite index",
+      "sublabel": "FTS5 + file lock",
+      "pos": [
+        790,
+        530
+      ],
+      "size": [
+        240,
+        80
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "from": "core",
+      "to": "adapters",
+      "label": "generate"
+    },
+    {
+      "from": "adapters",
+      "to": "codex",
+      "label": "discovery"
+    },
+    {
+      "from": "adapters",
+      "to": "hooks",
+      "label": "wire events"
+    },
+    {
+      "from": "codex",
+      "to": "mcp",
+      "label": "MCP stdio"
+    },
+    {
+      "from": "hooks",
+      "to": "mcp",
+      "label": "prd-mcp CLI"
+    },
+    {
+      "from": "mcp",
+      "to": "index",
+      "label": "search / reindex"
+    },
+    {
+      "from": "owner",
+      "to": "prds",
+      "label": "approve"
+    },
+    {
+      "from": "prds",
+      "to": "index",
+      "label": "index evidence"
+    }
+  ]
+}

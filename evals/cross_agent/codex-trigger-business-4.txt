@@ -1,0 +1,2 @@
+I’ll use the prd-consult skill to check REQ-AUTH-004 and cite the approved source.
+REQ-AUTH-004 requires administrators to enable MFA before accessing administrative actions. It does not document any administrator subgroup or exception. Source: `auth.md:20–22`.

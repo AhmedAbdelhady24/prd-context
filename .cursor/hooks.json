@@ -1,0 +1,31 @@
+{
+  "hooks": {
+    "sessionStart": [
+      {
+        "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py cursor session"
+      }
+    ],
+    "beforeSubmitPrompt": [
+      {
+        "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py cursor prompt"
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py cursor edit"
+      }
+    ],
+    "preToolUse": [
+      {
+        "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py cursor warning",
+        "matcher": "Write|Delete"
+      }
+    ],
+    "stop": [
+      {
+        "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py cursor stop"
+      }
+    ]
+  },
+  "version": 1
+}

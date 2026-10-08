@@ -1,0 +1,12 @@
+Under **REQ-AUTH-002** (`auth.md:12-15`):
+
+- Passwords must contain **at least 12 characters**.
+- Password reset links **expire after 30 minutes** and are **single-use**.
+
+That's the full extent of what's documented for this REQ — no other complexity/composition rules (e.g., special characters, reuse history) are specified in the cited evidence.
+Under **REQ-AUTH-002** (`auth.md:12-15`):
+
+- Passwords must contain **at least 12 characters**.
+- Password reset links **expire after 30 minutes** and are **single-use**.
+
+That's the full extent of what's documented for this REQ — no other complexity/composition rules (e.g., special characters, reuse history) are specified in the cited evidence.

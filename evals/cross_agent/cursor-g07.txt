@@ -1,0 +1,22 @@
+No, that's outdated. The current approved rule for `REQ-AUTH-001` is different from what you heard:
+
+> After 5 failed attempts within 10 minutes, login is locked for 15 minutes.
+
+(Source: `auth.md:7-11`, heading "REQ-AUTH-001 Login acceptance criteria")
+
+The full acceptance criteria block also includes:
+- A registered user with valid credentials reaches the dashboard.
+- Invalid credentials show a generic error without revealing account existence.
+
+So the "3 attempts / 24 hours" figure you heard is **not** what's documented — it's **5 attempts / 10 minutes window**, with a **15-minute lockout**, not 24 hours.
+No, that's outdated. The current approved rule for `REQ-AUTH-001` is different from what you heard:
+
+> After 5 failed attempts within 10 minutes, login is locked for 15 minutes.
+
+(Source: `auth.md:7-11`, heading "REQ-AUTH-001 Login acceptance criteria")
+
+The full acceptance criteria block also includes:
+- A registered user with valid credentials reaches the dashboard.
+- Invalid credentials show a generic error without revealing account existence.
+
+So the "3 attempts / 24 hours" figure you heard is **not** what's documented — it's **5 attempts / 10 minutes window**, with a **15-minute lockout**, not 24 hours.

@@ -1,0 +1,4 @@
+I’ll use the prd-consult skill to check REQ-AUTH-002 and cite the relevant source lines.
+In REQ-AUTH-002, password reset links **expire after 30 minutes** and are **single-use**, so they cannot be reused.
+
+Source: `auth.md:12–15` — “Password reset links expire after 30 minutes and are single-use.”

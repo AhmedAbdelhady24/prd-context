@@ -1,0 +1,7 @@
+policy:
+  allow_implicit_invocation: true
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "prd"
+      description: "Read-only approved PRD evidence"

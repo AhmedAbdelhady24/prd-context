@@ -1,0 +1,4 @@
+{
+  "PRD_DIR": "prds",
+  "PRD_DB": ".cache/prd_index.db"
+}

@@ -1,0 +1,112 @@
+## Removing an unused import in Python (behavior-preserving)
+
+Removing an unused import is safe when the module reference provides no runtime behavior other than making the name available. Here's how to verify and do it correctly:
+
+### 1. Confirm the import is truly unused
+Check that the imported name isn't referenced anywhere in the file:
+- Not used in type hints (including string-quoted "forward reference" hints like `"SomeType"`)
+- Not used in `__all__`
+- Not re-exported for other modules to import from this one
+- Not referenced dynamically via `getattr`, `globals()`, or string-based lookups
+- Not used only inside a docstring/doctest that still gets executed by a test runner
+
+```python
+import os  # if `os` never appears again in the file, it's unused
+```
+
+### 2. Watch for side-effect imports
+Some imports exist purely for their side effects, even if the name itself is never used:
+- `import matplotlib; matplotlib.use("Agg")` style backend registration
+- `import app.plugins.foo` that registers a plugin/handler on import
+- `from . import models` in an `__init__.py` to populate a package namespace
+- Imports that trigger monkeypatching or logging configuration
+
+If removing the import would change what code executes at import time (not just whether a name is bound), it's **not** a pure unused import — removing it changes behavior.
+
+### 3. Check `__init__.py` re-export conventions
+In package `__init__.py` files, "unused" imports are often intentional public API surface:
+```python
+from .client import Client  # looks unused, but enables `from pkg import Client`
+```
+These should stay unless explicitly declared in `__all__` and intentionally pruned, or unless the import is also redundant with `__all__`/`as` re-export syntax (`from .client import Client as Client`), which some linters recognize as intentional.
+
+### 4. Delete the import statement
+If none of the above apply, delete the line (or the specific name from a multi-name import):
+```python
+from collections import OrderedDict, defaultdict  # only OrderedDict used
+```
+becomes
+```python
+from collections import OrderedDict
+```
+
+### 5. Verify no behavior changed
+- Run the test suite.
+- Run a linter/static checker (`ruff`, `flake8`, `pyflakes`) to confirm no other unused-import or `F821` (undefined name) warnings appear.
+- For `__init__.py` files, run anything that imports the package to make sure downstream `from pkg import X` usages still resolve.
+
+### Tooling that automates this safely
+- `ruff check --select F401 --fix`
+- `autoflake --remove-all-unused-imports`
+- `pyflakes` to detect without modifying
+
+These tools apply the same "is it referenced anywhere, including type hints and `__all__`" analysis before suggesting removal.
+
+---
+Per workspace rules, this is a pure refactor that preserves behavior, so no PRD consultation was needed. I haven't modified any files, per Ask mode.
+## Removing an unused import in Python (behavior-preserving)
+
+Removing an unused import is safe when the module reference provides no runtime behavior other than making the name available. Here's how to verify and do it correctly:
+
+### 1. Confirm the import is truly unused
+Check that the imported name isn't referenced anywhere in the file:
+- Not used in type hints (including string-quoted "forward reference" hints like `"SomeType"`)
+- Not used in `__all__`
+- Not re-exported for other modules to import from this one
+- Not referenced dynamically via `getattr`, `globals()`, or string-based lookups
+- Not used only inside a docstring/doctest that still gets executed by a test runner
+
+```python
+import os  # if `os` never appears again in the file, it's unused
+```
+
+### 2. Watch for side-effect imports
+Some imports exist purely for their side effects, even if the name itself is never used:
+- `import matplotlib; matplotlib.use("Agg")` style backend registration
+- `import app.plugins.foo` that registers a plugin/handler on import
+- `from . import models` in an `__init__.py` to populate a package namespace
+- Imports that trigger monkeypatching or logging configuration
+
+If removing the import would change what code executes at import time (not just whether a name is bound), it's **not** a pure unused import — removing it changes behavior.
+
+### 3. Check `__init__.py` re-export conventions
+In package `__init__.py` files, "unused" imports are often intentional public API surface:
+```python
+from .client import Client  # looks unused, but enables `from pkg import Client`
+```
+These should stay unless explicitly declared in `__all__` and intentionally pruned, or unless the import is also redundant with `__all__`/`as` re-export syntax (`from .client import Client as Client`), which some linters recognize as intentional.
+
+### 4. Delete the import statement
+If none of the above apply, delete the line (or the specific name from a multi-name import):
+```python
+from collections import OrderedDict, defaultdict  # only OrderedDict used
+```
+becomes
+```python
+from collections import OrderedDict
+```
+
+### 5. Verify no behavior changed
+- Run the test suite.
+- Run a linter/static checker (`ruff`, `flake8`, `pyflakes`) to confirm no other unused-import or `F821` (undefined name) warnings appear.
+- For `__init__.py` files, run anything that imports the package to make sure downstream `from pkg import X` usages still resolve.
+
+### Tooling that automates this safely
+- `ruff check --select F401 --fix`
+- `autoflake --remove-all-unused-imports`
+- `pyflakes` to detect without modifying
+
+These tools apply the same "is it referenced anywhere, including type hints and `__all__`" analysis before suggesting removal.
+
+---
+Per workspace rules, this is a pure refactor that preserves behavior, so no PRD consultation was needed. I haven't modified any files, per Ask mode.

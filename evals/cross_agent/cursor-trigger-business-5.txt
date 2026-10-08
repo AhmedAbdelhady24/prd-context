@@ -1,0 +1,21 @@
+Not documented. The `prd` MCP returned no evidence for `REQ-BILLING-001` (empty evidence list, `documented: false`), and no approved PRD text addresses a refund policy under that REQ ID.
+
+So: **I can't confirm an approved refund policy for `REQ-BILLING-001`** — it's not documented in the indexed PRDs. A couple of things that could help if you want me to dig further:
+Here's the status as-is:
+
+- **Query run:** `prd_answer_context` with query "REQ-BILLING-001 refund policy"
+- **Result:** `documented: false`, no evidence returned
+
+**Not documented.** There is no approved PRD evidence in the indexed source for `REQ-BILLING-001` or a refund policy tied to that REQ ID. I can't state a refund policy here since there's nothing to cite.
+
+If you believe this REQ ID should exist, it's possible the PRD index is stale or the ID differs slightly — let me know if you'd like me to retry with a broader query (e.g., just "refund policy") or trigger a reindex.
+Not documented. The `prd` MCP returned no evidence for `REQ-BILLING-001` (empty evidence list, `documented: false`), and no approved PRD text addresses a refund policy under that REQ ID.
+
+So: **I can't confirm an approved refund policy for `REQ-BILLING-001`** — it's not documented in the indexed PRDs. A couple of things that could help if you want me to dig further:Here's the status as-is:
+
+- **Query run:** `prd_answer_context` with query "REQ-BILLING-001 refund policy"
+- **Result:** `documented: false`, no evidence returned
+
+**Not documented.** There is no approved PRD evidence in the indexed source for `REQ-BILLING-001` or a refund policy tied to that REQ ID. I can't state a refund policy here since there's nothing to cite.
+
+If you believe this REQ ID should exist, it's possible the PRD index is stale or the ID differs slightly — let me know if you'd like me to retry with a broader query (e.g., just "refund policy") or trigger a reindex.

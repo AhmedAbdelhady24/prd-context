@@ -1,0 +1,12 @@
+A behavior-preserving rename changes the local variable’s name from `x` to `count` and updates every reference to that variable within its scope.
+
+```diff
+- const x = items.length;
+- return x > 0;
++ const count = items.length;
++ return count > 0;
+```
+
+The value and logic stay the same. Check that `count` doesn’t conflict with another name in the scope, and leave unrelated variables named `x` untouched.
+
+No files were modified.

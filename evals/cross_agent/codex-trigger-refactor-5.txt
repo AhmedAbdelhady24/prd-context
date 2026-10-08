@@ -1,0 +1,26 @@
+I’ll explain the behavior-preserving case and the main caveats without changing files.
+I’m using the code-simplification skill to frame when this replacement preserves behavior. This is a pure refactor, so it does not require a PRD query.
+In Python, replace a loop that only adds integers:
+
+```python
+total = 0
+for number in numbers:
+    total += number
+```
+
+with:
+
+```python
+total = sum(numbers)
+```
+
+This expresses the intent directly and preserves the result for ordinary integers, including `0` for an empty iterable.
+
+Before calling it behavior-preserving, check that:
+
+- The loop has no other work, such as logging, filtering, or early exits.
+- The starting value is `0`; otherwise use `sum(numbers, starting_value)`.
+- Nothing afterward relies on the loop variable or intermediate totals.
+- The values are suitable: floating-point summation can round differently, and custom objects may behave differently with `+=` versus addition.
+
+No files were modified.

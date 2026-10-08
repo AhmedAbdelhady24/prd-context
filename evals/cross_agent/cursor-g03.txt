@@ -1,0 +1,12 @@
+Per `auth.md:12-15` (REQ-AUTH-002 Password policy):
+
+- **Expiration:** Password reset links expire after **30 minutes**.
+- **Reuse:** No — the links are **single-use**.
+
+**Source:** `auth.md:12-15`
+Per `auth.md:12-15` (REQ-AUTH-002 Password policy):
+
+- **Expiration:** Password reset links expire after **30 minutes**.
+- **Reuse:** No — the links are **single-use**.
+
+**Source:** `auth.md:12-15`

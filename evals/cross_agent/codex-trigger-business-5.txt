@@ -1,0 +1,2 @@
+I’ll use the prd-consult skill to check the approved policy for REQ-BILLING-001 and cite its source lines.
+The approved refund policy for **REQ-BILLING-001 is not documented** in the available approved PRD evidence. The PRD query returned no supporting sources, so I can’t confirm a policy or cite source lines.

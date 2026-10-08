@@ -1,0 +1,2 @@
+Not documented. The PRD MCP returned no evidence for `REQ-BILLING-001` or any refund-window requirement — no source/line citation exists to support a claim here, so I can't state an approved refund window.
+Not documented. The PRD MCP returned no evidence for `REQ-BILLING-001` or any refund-window requirement — no source/line citation exists to support a claim here, so I can't state an approved refund window.

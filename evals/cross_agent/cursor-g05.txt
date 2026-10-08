@@ -1,0 +1,6 @@
+Under `REQ-AUTH-003`, logout invalidates the server-side session (sessions otherwise expire after 60 minutes of inactivity).
+
+Source: `auth.md:16-19` (heading "REQ-AUTH-003 Session policy")
+Under `REQ-AUTH-003`, logout invalidates the server-side session (sessions otherwise expire after 60 minutes of inactivity).
+
+Source: `auth.md:16-19` (heading "REQ-AUTH-003 Session policy")

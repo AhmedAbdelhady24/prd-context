@@ -1,0 +1,10 @@
+{
+  "name": "prd-context",
+  "version": "0.1.0",
+  "description": "Repo-shipped PRD context",
+  "skills": "./.agents/skills",
+  "rules": "./rules",
+  "agents": "./agents",
+  "hooks": "./hooks/hooks.json",
+  "mcpServers": "./mcp.json"
+}

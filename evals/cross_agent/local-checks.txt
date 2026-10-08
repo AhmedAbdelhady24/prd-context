@@ -1,0 +1,13 @@
+Approved PRD edit: use explicitly invoked prd-author, preserve REQ IDs and review status; get owner approval before changing business rules.
+PRD pointers (verify through prd_answer_context): /private/var/folders/y9/trbdh9293156vt8vzncxfxy40000gn/T/tmpemenoayz/prds/current.md:4-5
+Processing request of type ListToolsRequest
+Processing request of type CallToolRequest
+Adapters match core (36 files)
+Adapters match core (36 files)
+Generated 36 adapter files
+Generated 36 adapter files
+Adapters match core (36 files)
+claude prompt hook 50.6 ms
+cursor prompt hook 49.7 ms
+codex prompt hook 49.3 ms
+PASS: freshness, exclusion, citations, idempotence, 8-process locking, hook normalization/fail-open/latency, MCP protocol, adapter drift

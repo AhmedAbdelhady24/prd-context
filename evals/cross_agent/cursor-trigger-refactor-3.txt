@@ -1,0 +1,150 @@
+Since this is a conceptual question about Python formatting conventions (not a business-logic question, and a "pure refactor that preserves behavior" per the workspace's PRD rule), no PRD lookup is needed here. Here's the explanation:
+
+## Whitespace in Python: what's "just formatting" vs. what changes behavior
+
+Python is whitespace-sensitive for **indentation** (block structure) but whitespace-insensitive almost everywhere else. That split is the key to knowing what you can safely reformat.
+
+### Safe to change (cosmetic only — never affects behavior)
+
+1. **Spaces around operators/commas**
+```python
+x=1+2
+```
+→
+```python
+x = 1 + 2
+```
+
+2. **Spaces inside/around brackets**
+```python
+foo( a,b , c )
+```
+→
+```python
+foo(a, b, c)
+```
+
+3. **Blank lines between statements/functions** (PEP 8 recommends 2 blank lines between top-level defs, 1 inside classes/functions).
+
+4. **Trailing whitespace at end of lines** — always safe to strip.
+
+5. **Line length / wrapping long lines** using parentheses, as long as you don't alter tokens:
+```python
+result = some_function(argument_one, argument_two,
+                        argument_three)
+```
+
+6. **Consistent spacing around default args / keyword args** — but note PEP 8 convention differs here:
+```python
+def f(x, y=1):      # no spaces around `=` for keyword/default args
+    ...
+foo(x, y = 1)        # discouraged but NOT a behavior change — still just spacing
+```
+
+7. **Converting tabs↔spaces consistently**, as long as indentation *levels* stay the same and you don't mix tabs and spaces inconsistently (mixing can actually cause a `TabError` or change nesting — see below).
+
+### NOT safe — these are not "just whitespace," they change behavior/structure
+
+1. **Indentation level** — this is the one true exception. Changing indentation changes which block a statement belongs to:
+```python
+if cond:
+    do_a()
+    do_b()   # inside if
+```
+vs.
+```python
+if cond:
+    do_a()
+do_b()       # now always runs, outside if
+```
+This is a **structural change**, not formatting.
+
+2. **Whitespace inside string literals** — e.g. `"hello world"` vs `"hello  world"`. That whitespace is data, not formatting.
+
+3. **Line continuation removal without backslash/parens** — Python uses newlines as statement terminators; removing a newline without proper bracketing can merge or break statements.
+
+4. **Significant whitespace in f-strings / multi-line strings** (triple-quoted strings preserve exact whitespace, including indentation).
+
+### Practical rule of thumb
+> Whitespace reformatting is behavior-preserving **only when it occurs between tokens on the same logical line, or as blank lines between statements** — never when it changes indentation level or occurs inside a string literal.
+
+### Tools that do this safely
+- **`black`**, **`autopep8`**, **`yapf`** — these reformat whitespace/line-breaks per PEP 8 while parsing the AST, so they guarantee no behavior change.
+- `ruff format` is a fast modern alternative.
+
+If you want, point me to the specific function/file in this workspace and I can show you exactly which whitespace changes would be purely cosmetic there (still without editing anything, since Ask mode is read-only).
+Since this is a conceptual question about Python formatting conventions (not a business-logic question, and a "pure refactor that preserves behavior" per the workspace's PRD rule), no PRD lookup is needed here. Here's the explanation:
+
+## Whitespace in Python: what's "just formatting" vs. what changes behavior
+
+Python is whitespace-sensitive for **indentation** (block structure) but whitespace-insensitive almost everywhere else. That split is the key to knowing what you can safely reformat.
+
+### Safe to change (cosmetic only — never affects behavior)
+
+1. **Spaces around operators/commas**
+```python
+x=1+2
+```
+→
+```python
+x = 1 + 2
+```
+
+2. **Spaces inside/around brackets**
+```python
+foo( a,b , c )
+```
+→
+```python
+foo(a, b, c)
+```
+
+3. **Blank lines between statements/functions** (PEP 8 recommends 2 blank lines between top-level defs, 1 inside classes/functions).
+
+4. **Trailing whitespace at end of lines** — always safe to strip.
+
+5. **Line length / wrapping long lines** using parentheses, as long as you don't alter tokens:
+```python
+result = some_function(argument_one, argument_two,
+                        argument_three)
+```
+
+6. **Consistent spacing around default args / keyword args** — but note PEP 8 convention differs here:
+```python
+def f(x, y=1):      # no spaces around `=` for keyword/default args
+    ...
+foo(x, y = 1)        # discouraged but NOT a behavior change — still just spacing
+```
+
+7. **Converting tabs↔spaces consistently**, as long as indentation *levels* stay the same and you don't mix tabs and spaces inconsistently (mixing can actually cause a `TabError` or change nesting — see below).
+
+### NOT safe — these are not "just whitespace," they change behavior/structure
+
+1. **Indentation level** — this is the one true exception. Changing indentation changes which block a statement belongs to:
+```python
+if cond:
+    do_a()
+    do_b()   # inside if
+```
+vs.
+```python
+if cond:
+    do_a()
+do_b()       # now always runs, outside if
+```
+This is a **structural change**, not formatting.
+
+2. **Whitespace inside string literals** — e.g. `"hello world"` vs `"hello  world"`. That whitespace is data, not formatting.
+
+3. **Line continuation removal without backslash/parens** — Python uses newlines as statement terminators; removing a newline without proper bracketing can merge or break statements.
+
+4. **Significant whitespace in f-strings / multi-line strings** (triple-quoted strings preserve exact whitespace, including indentation).
+
+### Practical rule of thumb
+> Whitespace reformatting is behavior-preserving **only when it occurs between tokens on the same logical line, or as blank lines between statements** — never when it changes indentation level or occurs inside a string literal.
+
+### Tools that do this safely
+- **`black`**, **`autopep8`**, **`yapf`** — these reformat whitespace/line-breaks per PEP 8 while parsing the AST, so they guarantee no behavior change.
+- `ruff format` is a fast modern alternative.
+
+If you want, point me to the specific function/file in this workspace and I can show you exactly which whitespace changes would be purely cosmetic there (still without editing anything, since Ask mode is read-only).

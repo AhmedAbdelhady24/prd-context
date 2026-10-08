@@ -1,0 +1,2 @@
+I’ll use the prd-consult skill to check REQ-AUTH-003 in the approved PRD.
+REQ-AUTH-003 requires sessions to expire after **60 minutes of inactivity**. Source: [auth.md, lines 16–19](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/auth.md:16).

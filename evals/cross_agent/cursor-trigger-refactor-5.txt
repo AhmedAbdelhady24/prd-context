@@ -1,0 +1,58 @@
+This is a pure syntax-level refactor with no business-logic implications, so no PRD consult is needed here (per the "Pure refactors that preserve behavior do not need a PRD query" rule). I didn't find an actual manual sum loop in this project's own source (only in third-party `.venv` dependencies), so here's the general explanation:
+
+## The transformation
+
+```python
+# Before
+total = 0
+for n in numbers:
+    total += n
+
+# After
+total = sum(numbers)
+```
+
+## Why behavior is preserved
+
+- `sum(iterable, start=0)` does exactly what the loop does: starts an accumulator at `0` and adds each element in iteration order. For a list of numbers these are semantically identical.
+- Iteration order is preserved — `sum` iterates the sequence the same way `for` does, so order-dependent behavior (e.g., with floats, where addition isn't associative) stays the same.
+- Empty input: `sum([])` returns `0`, matching what the loop produces (the loop just never executes, leaving `total = 0`).
+- Type behavior: `sum` with floats/ints behaves the same as repeated `+=`. If `numbers` contains non-numeric types that override `__add__`/`__radd__` (e.g., custom objects, `Decimal`, `Fraction`), it still works the same as the loop, **except**:
+  - **Edge case 1 — strings**: `sum(["a", "b"])` raises `TypeError` because the default `start=0` can't be added to a string. The manual loop with `total = 0` would hit the exact same error (`0 + "a"` fails), so behavior actually matches.
+  - **Edge case 2 — mixed start value**: If the original loop initializes `total` to something other than `0` (e.g., `total = 10`), you must pass that as `sum(numbers, 10)` to preserve behavior exactly.
+  - **Edge case 3 — non-numeric accumulation with side effects**: If the loop body does more than just `total += n` (logging, filtering, mutation), replacing it with `sum()` changes behavior and isn't a pure refactor.
+
+## When it's safe to do automatically
+
+Only when the loop body is *exactly* an accumulation (`total += n` or `total = total + n`) with no other side effects, conditionals, or transformations — otherwise it's not behavior-preserving and needs more than a mechanical swap (e.g., `sum(f(n) for n in numbers)` for a transform, or a generator expression with a filter for conditional loops).
+
+If you want, point me to the actual loop in this codebase and I can confirm the `sum()` replacement is safe for that specific case — but I won't make the edit since we're in Ask mode.
+This is a pure syntax-level refactor with no business-logic implications, so no PRD consult is needed here (per the "Pure refactors that preserve behavior do not need a PRD query" rule). I didn't find an actual manual sum loop in this project's own source (only in third-party `.venv` dependencies), so here's the general explanation:
+
+## The transformation
+
+```python
+# Before
+total = 0
+for n in numbers:
+    total += n
+
+# After
+total = sum(numbers)
+```
+
+## Why behavior is preserved
+
+- `sum(iterable, start=0)` does exactly what the loop does: starts an accumulator at `0` and adds each element in iteration order. For a list of numbers these are semantically identical.
+- Iteration order is preserved — `sum` iterates the sequence the same way `for` does, so order-dependent behavior (e.g., with floats, where addition isn't associative) stays the same.
+- Empty input: `sum([])` returns `0`, matching what the loop produces (the loop just never executes, leaving `total = 0`).
+- Type behavior: `sum` with floats/ints behaves the same as repeated `+=`. If `numbers` contains non-numeric types that override `__add__`/`__radd__` (e.g., custom objects, `Decimal`, `Fraction`), it still works the same as the loop, **except**:
+  - **Edge case 1 — strings**: `sum(["a", "b"])` raises `TypeError` because the default `start=0` can't be added to a string. The manual loop with `total = 0` would hit the exact same error (`0 + "a"` fails), so behavior actually matches.
+  - **Edge case 2 — mixed start value**: If the original loop initializes `total` to something other than `0` (e.g., `total = 10`), you must pass that as `sum(numbers, 10)` to preserve behavior exactly.
+  - **Edge case 3 — non-numeric accumulation with side effects**: If the loop body does more than just `total += n` (logging, filtering, mutation), replacing it with `sum()` changes behavior and isn't a pure refactor.
+
+## When it's safe to do automatically
+
+Only when the loop body is *exactly* an accumulation (`total += n` or `total = total + n`) with no other side effects, conditionals, or transformations — otherwise it's not behavior-preserving and needs more than a mechanical swap (e.g., `sum(f(n) for n in numbers)` for a transform, or a generator expression with a filter for conditional loops).
+
+If you want, point me to the actual loop in this codebase and I can confirm the `sum()` replacement is safe for that specific case — but I won't make the edit since we're in Ask mode.

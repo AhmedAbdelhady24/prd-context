@@ -1,0 +1,22 @@
+Whitespace in a Python function serves two purposes:
+
+- **Indentation defines blocks.** Keep statements at the same logical indentation level. Moving a statement into or out of an `if`, loop, or other block can change behavior.
+- **Spacing improves readability.** Spaces around operators, spaces after commas, and blank lines can usually be adjusted without changing behavior.
+
+For example, these functions behave the same:
+
+```python
+def add(a,b):
+    result=a+b
+    return result
+```
+
+```python
+def add(a, b):
+    result = a + b
+    return result
+```
+
+You can also wrap expressions inside parentheses across multiple lines. Preserve tokens, block structure, and whitespace inside string literals, where spaces and newlines may be part of the value.
+
+No files were modified.

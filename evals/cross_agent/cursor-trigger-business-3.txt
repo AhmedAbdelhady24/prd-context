@@ -1,0 +1,6 @@
+**REQ-AUTH-003** requires sessions to expire after **60 minutes of inactivity**. Logout also invalidates the server-side session.
+
+Source: `prds/auth.md:16-19` (heading "REQ-AUTH-003 Session policy")
+**REQ-AUTH-003** requires sessions to expire after **60 minutes of inactivity**. Logout also invalidates the server-side session.
+
+Source: `prds/auth.md:16-19` (heading "REQ-AUTH-003 Session policy")

@@ -1,0 +1,2 @@
+I’ll use the prd-consult skill to check REQ-AUTH-003 and cite the source lines.
+Under **REQ-AUTH-003**, logout **invalidates the server-side session**. Source: `auth.md:16–19`, “REQ-AUTH-003 Session policy.”

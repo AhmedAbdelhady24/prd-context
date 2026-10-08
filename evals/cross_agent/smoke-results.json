@@ -1,0 +1,32 @@
+[
+  {
+    "tool": "cursor",
+    "id": "smoke",
+    "exit_code": 0,
+    "seconds": 14.21,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": false,
+    "response": "**REQ-AUTH-001 \u2014 Login acceptance criteria** (source: `auth.md:7-11`):\n\n- A registered user with valid credentials reaches the dashboard.\n- Invalid credentials show a generic error without revealing account existence.\n- After 5 failed attempts within 10 minutes, login is locked for 15 minutes.\n**REQ-AUTH-001 \u2014 Login acceptance criteria** (source: `auth.md:7-11`):\n\n- A registered user with valid credentials reaches the dashboard.\n- Invalid credentials show a generic error without revealing account existence.\n- After 5 failed attempts within 10 minutes, login is locked for 15 minutes."
+  },
+  {
+    "tool": "claude",
+    "id": "smoke",
+    "exit_code": 1,
+    "seconds": 1.31,
+    "mcp_observed": false,
+    "mcp_succeeded": false,
+    "skill_observed": false,
+    "response": "Failed to authenticate: OAuth session expired and could not be refreshed\nFailed to authenticate: OAuth session expired and could not be refreshed"
+  },
+  {
+    "tool": "codex",
+    "id": "smoke",
+    "exit_code": 0,
+    "seconds": 17.32,
+    "mcp_observed": true,
+    "mcp_succeeded": true,
+    "skill_observed": true,
+    "response": "I\u2019ll use the prd-consult skill to look up REQ-AUTH-001 and cite its acceptance criteria.\nREQ-AUTH-001 has three acceptance criteria:\n\n- A registered user with valid credentials reaches the dashboard.\n- Invalid credentials show a generic error without revealing whether the account exists.\n- After 5 failed attempts within 10 minutes, login is locked for 15 minutes.\n\nSource: [prds/auth.md, lines 7\u201311](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds/auth.md:7)."
+  }
+]

@@ -1,0 +1,10 @@
+**REQ-AUTH-001 — Login acceptance criteria** (source: `auth.md:7-11`):
+
+- A registered user with valid credentials reaches the dashboard.
+- Invalid credentials show a generic error without revealing account existence.
+- After 5 failed attempts within 10 minutes, login is locked for 15 minutes.
+**REQ-AUTH-001 — Login acceptance criteria** (source: `auth.md:7-11`):
+
+- A registered user with valid credentials reaches the dashboard.
+- Invalid credentials show a generic error without revealing account existence.
+- After 5 failed attempts within 10 minutes, login is locked for 15 minutes.

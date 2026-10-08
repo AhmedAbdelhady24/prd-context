@@ -1,0 +1,12 @@
+Under `REQ-AUTH-004`, **administrators** must enable MFA before accessing administrative actions.
+
+**Source:** `auth.md:20-22` (heading "REQ-AUTH-004 MFA policy")
+> "Administrators must enable MFA before accessing administrative actions."
+
+Note: this evidence only specifies administrators — no mention of other user roles being required to enable MFA under this REQ ID, so I can't confirm or rule out broader requirements beyond that.
+Under `REQ-AUTH-004`, **administrators** must enable MFA before accessing administrative actions.
+
+**Source:** `auth.md:20-22` (heading "REQ-AUTH-004 MFA policy")
+> "Administrators must enable MFA before accessing administrative actions."
+
+Note: this evidence only specifies administrators — no mention of other user roles being required to enable MFA under this REQ ID, so I can't confirm or rule out broader requirements beyond that.

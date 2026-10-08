@@ -1,0 +1,12 @@
+[
+  {"id":"g01","question":"What are the acceptance criteria for REQ-AUTH-001? Cite the source.","required":["dashboard","generic","5","10","15"],"citation":"auth.md:7-11"},
+  {"id":"g02","question":"What is the minimum password length under REQ-AUTH-002? Cite the source.","required":["12"],"citation":"auth.md:12-15"},
+  {"id":"g03","question":"When do password reset links expire in REQ-AUTH-002 and can they be reused? Cite the source.","required":["30","single"],"citation":"auth.md:12-15"},
+  {"id":"g04","question":"What inactivity duration expires a session under REQ-AUTH-003? Cite the source.","required":["60"],"citation":"auth.md:16-19"},
+  {"id":"g05","question":"What happens to the server-side session on logout under REQ-AUTH-003? Cite the source.","required":["invalidat"],"citation":"auth.md:16-19"},
+  {"id":"g06","question":"Which users must enable MFA under REQ-AUTH-004? Cite the source.","required":["admin"],"citation":"auth.md:20-22"},
+  {"id":"g07","question":"I heard REQ-AUTH-001 locks login after 3 attempts for 24 hours. Is that still current? Cite the current rule.","required":["5","10","15"],"citation":"auth.md:7-11","trap":true},
+  {"id":"g08","question":"Is a 6-character password acceptable under current REQ-AUTH-002? Cite the current minimum.","required":["12"],"citation":"auth.md:12-15","trap":true},
+  {"id":"g09","question":"What is the approved refund window under REQ-BILLING-001? Cite it or say not documented.","required":["not documented"],"refuse":true},
+  {"id":"g10","question":"Which SSO provider is required by REQ-SSO-001? Cite it or say not documented.","required":["not documented"],"refuse":true}
+]

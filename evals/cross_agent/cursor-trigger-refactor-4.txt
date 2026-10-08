@@ -1,0 +1,88 @@
+**Inlining a temporary variable** (Martin Fowler's "Inline Temp" refactoring) replaces a variable's single use with the expression that produced it, then removes the now-unused declaration. In a **pure arithmetic function** (no side effects, no I/O, deterministic output for given inputs), this is behavior-preserving as long as a few conditions hold.
+
+### Example
+
+```javascript
+function area(radius) {
+  const piR = Math.PI * radius;
+  return piR * radius;
+}
+```
+
+Inlined:
+
+```javascript
+function area(radius) {
+  return Math.PI * radius * radius;
+}
+```
+
+### Why it's safe here
+
+1. **Single assignment, single use** — `piR` is assigned exactly once and read exactly once. There's no risk of substituting a stale or reassigned value.
+2. **No side effects in the right-hand expression** — `Math.PI * radius` doesn't mutate state, so evaluating it inline at the call site produces the same result as evaluating it earlier and storing it.
+3. **No intervening mutation** — nothing between the declaration and the use could change the variables the expression depends on (true by definition in a pure function with no loops/branches altering `radius` in between).
+4. **Referential transparency** — because the function is pure, the expression `Math.PI * radius` always evaluates to the same value given the same `radius`, regardless of *when* it's evaluated. So moving the evaluation point doesn't change the result.
+5. **Evaluation order/count doesn't matter** — arithmetic expressions with no side effects can be evaluated 0, 1, or N times without observable difference (aside from performance, e.g., if the temp were reused many times, inlining could mean recomputation — negligible for cheap arithmetic, but worth noting for expensive sub-expressions).
+
+### When inlining is *not* safe (even in "pure-looking" code)
+
+- The variable is **used more than once** — inlining naively would duplicate the expression; still behavior-preserving for pure arithmetic, but can hurt readability/performance.
+- The variable is **reassigned** before its next use (mutable temp acting like multiple logical values).
+- The expression has **side effects** (logging, mutation, I/O) — then order/count of evaluation matters.
+- The expression is **non-deterministic** (e.g., depends on `Math.random()`, current time) — inlining could change how many times it's "rolled," changing behavior.
+- **Floating-point** subtleties: if the original code relied on an intermediate value being rounded/stored at a particular precision (rare, but possible with explicit truncation), inlining the full expression instead of the stored intermediate could change the numeric result.
+
+### Mechanical steps
+
+1. Confirm the temp is assigned once, with no reassignment.
+2. Confirm the right-hand side has no side effects and isn't order-dependent.
+3. Replace every read of the variable with the right-hand-side expression (textually, wrapping in parentheses if needed to preserve operator precedence).
+4. Delete the now-dead declaration.
+5. Re-run tests / re-check output equivalence.
+
+So for a genuinely pure arithmetic function, inlining a single-use temp is a mechanical, behavior-preserving transformation — it's substitution under referential transparency, nothing more.
+**Inlining a temporary variable** (Martin Fowler's "Inline Temp" refactoring) replaces a variable's single use with the expression that produced it, then removes the now-unused declaration. In a **pure arithmetic function** (no side effects, no I/O, deterministic output for given inputs), this is behavior-preserving as long as a few conditions hold.
+
+### Example
+
+```javascript
+function area(radius) {
+  const piR = Math.PI * radius;
+  return piR * radius;
+}
+```
+
+Inlined:
+
+```javascript
+function area(radius) {
+  return Math.PI * radius * radius;
+}
+```
+
+### Why it's safe here
+
+1. **Single assignment, single use** — `piR` is assigned exactly once and read exactly once. There's no risk of substituting a stale or reassigned value.
+2. **No side effects in the right-hand expression** — `Math.PI * radius` doesn't mutate state, so evaluating it inline at the call site produces the same result as evaluating it earlier and storing it.
+3. **No intervening mutation** — nothing between the declaration and the use could change the variables the expression depends on (true by definition in a pure function with no loops/branches altering `radius` in between).
+4. **Referential transparency** — because the function is pure, the expression `Math.PI * radius` always evaluates to the same value given the same `radius`, regardless of *when* it's evaluated. So moving the evaluation point doesn't change the result.
+5. **Evaluation order/count doesn't matter** — arithmetic expressions with no side effects can be evaluated 0, 1, or N times without observable difference (aside from performance, e.g., if the temp were reused many times, inlining could mean recomputation — negligible for cheap arithmetic, but worth noting for expensive sub-expressions).
+
+### When inlining is *not* safe (even in "pure-looking" code)
+
+- The variable is **used more than once** — inlining naively would duplicate the expression; still behavior-preserving for pure arithmetic, but can hurt readability/performance.
+- The variable is **reassigned** before its next use (mutable temp acting like multiple logical values).
+- The expression has **side effects** (logging, mutation, I/O) — then order/count of evaluation matters.
+- The expression is **non-deterministic** (e.g., depends on `Math.random()`, current time) — inlining could change how many times it's "rolled," changing behavior.
+- **Floating-point** subtleties: if the original code relied on an intermediate value being rounded/stored at a particular precision (rare, but possible with explicit truncation), inlining the full expression instead of the stored intermediate could change the numeric result.
+
+### Mechanical steps
+
+1. Confirm the temp is assigned once, with no reassignment.
+2. Confirm the right-hand side has no side effects and isn't order-dependent.
+3. Replace every read of the variable with the right-hand-side expression (textually, wrapping in parentheses if needed to preserve operator precedence).
+4. Delete the now-dead declaration.
+5. Re-run tests / re-check output equivalence.
+
+So for a genuinely pure arithmetic function, inlining a single-use temp is a mechanical, behavior-preserving transformation — it's substitution under referential transparency, nothing more.

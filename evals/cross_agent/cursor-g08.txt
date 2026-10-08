@@ -1,0 +1,12 @@
+No — a 6-character password does **not** meet the current requirement.
+
+Per `auth.md:12-15` (REQ-AUTH-002, Password policy):
+> "Passwords contain at least 12 characters."
+
+The documented minimum is **12 characters**, so a 6-character password is below the required threshold and should be rejected.
+No — a 6-character password does **not** meet the current requirement.
+
+Per `auth.md:12-15` (REQ-AUTH-002, Password policy):
+> "Passwords contain at least 12 characters."
+
+The documented minimum is **12 characters**, so a 6-character password is below the required threshold and should be rejected.

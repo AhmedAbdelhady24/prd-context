@@ -1,0 +1,7 @@
+I’ll use the prd-consult skill to check REQ-AUTH-002 and cite the documented policy.
+Under **REQ-AUTH-002**:
+
+- Passwords must contain at least **12 characters**.
+- Password reset links expire after **30 minutes** and are **single-use**.
+
+Source: `auth.md:12–15`.

@@ -1,0 +1,20 @@
+I’ll explain the change without modifying files. Since it preserves behavior, no PRD query is needed.
+Removing an unused Python import means deleting an import whose name is never referenced:
+
+```python
+# Before
+import math
+
+def double(value):
+    return value * 2
+```
+
+```python
+# After
+def double(value):
+    return value * 2
+```
+
+To preserve behavior, check that the import also isn’t needed for side effects—such as registering plugins—or to expose a name for other modules to import. An unused name alone doesn’t prove removal is safe, because importing a module can execute code.
+
+After removal, relevant tests should still pass. No files were modified.

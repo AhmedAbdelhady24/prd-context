@@ -1,0 +1,7 @@
+# Generated: re-run scripts/sync_adapters.py after relocating.
+[mcp_servers.prd]
+command = "uv"
+args = ["run", "--directory", "/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server", "prd-mcp"]
+[mcp_servers.prd.env]
+PRD_DIR = "/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds"
+PRD_DB = "/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db"

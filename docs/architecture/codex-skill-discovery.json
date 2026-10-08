@@ -1,0 +1,9 @@
+{
+  "project_package": ".agents/skills/archify/SKILL.md",
+  "project_package_version": "3.0.1",
+  "project_package_present": true,
+  "native_skills_list_errors": [],
+  "effective_skill_scope": "user",
+  "effective_skill_path": "/Users/ahmedabdelhady/.agents/skills/archify/SKILL.md",
+  "limitation": "This machine already has a global Archify skill. Native skills/list selected that copy; project-copy discovery on a clean user installation has not been verified."
+}

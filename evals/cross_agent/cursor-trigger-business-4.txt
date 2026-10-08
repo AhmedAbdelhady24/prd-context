@@ -1,0 +1,14 @@
+**All administrators** must enable MFA before accessing administrative actions — the PRD doesn't carve out sub-roles, it's a blanket rule for the "Administrators" role.
+
+Citation: `prds/auth.md:20-22` (REQ-AUTH-004 MFA policy)
+
+> Administrators must enable MFA before accessing administrative actions.
+
+Note: this is explicitly a synthetic/fixture PRD (`fixture: true`), not real product requirements.
+**All administrators** must enable MFA before accessing administrative actions — the PRD doesn't carve out sub-roles, it's a blanket rule for the "Administrators" role.
+
+Citation: `prds/auth.md:20-22` (REQ-AUTH-004 MFA policy)
+
+> Administrators must enable MFA before accessing administrative actions.
+
+Note: this is explicitly a synthetic/fixture PRD (`fixture: true`), not real product requirements.

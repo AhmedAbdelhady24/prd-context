@@ -1,0 +1,6 @@
+Sessions expire after **60 minutes of inactivity** under `REQ-AUTH-003`.
+
+Source: `auth.md:16-19` (heading "REQ-AUTH-003 Session policy") — "Sessions expire after 60 minutes of inactivity."
+Sessions expire after **60 minutes of inactivity** under `REQ-AUTH-003`.
+
+Source: `auth.md:16-19` (heading "REQ-AUTH-003 Session policy") — "Sessions expire after 60 minutes of inactivity."

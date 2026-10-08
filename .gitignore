@@ -1,0 +1,5 @@
+server/.venv/
+**/__pycache__/
+.cache/
+evals/cross_agent/*.jsonl
+evals/cross_agent/*.stderr

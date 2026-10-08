@@ -1,0 +1,61 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py claude session",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py claude prompt",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py claude edit",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py claude warning",
+            "timeout": 10
+          }
+        ],
+        "matcher": "Write|Edit"
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "PRD_DIR=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds PRD_DB=/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/.cache/prd_index.db python3 /Users/ahmedabdelhady/Desktop/personal_projects/prd-context/scripts/hooks.py claude stop",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

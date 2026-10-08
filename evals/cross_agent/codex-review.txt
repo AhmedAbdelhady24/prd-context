@@ -1,0 +1,13 @@
+Found five concrete issues:
+
+1. **[P1] Ambiguous approval status passes retrieval.** [index.py:26–27](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:26) counts only regex-matching status values. Frontmatter containing `status: approved` followed by `status: "draft"` returns `approved`. Both indexing and live validation accept it, allowing ambiguously approved text—including injected instructions—into evidence.
+
+2. **[P2] Multiple REQ IDs return no evidence when documented separately.** [index.py:111](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:111) requires every queried ID within each individual chunk. Reproduced: two single-ID queries each returned evidence; their combined query returned none.
+
+3. **[P2] Stale results crowd out valid evidence.** [index.py:114–126](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:114) applies SQL `LIMIT` before live validation without fetching replacements. Reproduced: a stale highest-ranked hit caused `limit=1` to return nothing despite a valid lower-ranked match. This affects CLI searches between reindexes and MCP searches when files change after indexing.
+
+4. **[P2] Search omits the corpus ownership check.** [index.py:107](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:107) never checks `meta.root`; that guard exists only in [reindex:62–64](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:62). Reusing a database with another corpus containing identical relative filenames and bytes returns the previous corpus’s evidence instead of rejecting the mismatch. Reproduced in memory.
+
+5. **[P2] Lock waits block the MCP event loop.** The synchronous endpoints at [app.py:25–33](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/app.py:25) run inline in the installed SDK’s [dispatcher:112–115](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/.venv/lib/python3.12/site-packages/mcp/server/fastmcp/utilities/func_metadata.py:112). The lock retry uses blocking sleep at [index.py:35–43](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/server/prd_context/index.py:35), so contention can freeze other requests and cancellation handling for approximately ten seconds. An in-memory dispatch check delayed a 5 ms heartbeat to 91 ms during an 80 ms synchronous call.
+
+No files edited. Checks used in-memory SQLite and mocked filesystem reads. No downstream execution of injected PRD instructions was demonstrated.

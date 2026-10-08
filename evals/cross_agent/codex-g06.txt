@@ -1,0 +1,4 @@
+I’ll use the prd-consult skill to check REQ-AUTH-004 and cite the source lines.
+Under REQ-AUTH-004, **administrators must enable MFA before accessing administrative actions**.
+
+Source: [prds/auth.md, lines 20–22](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/prds/auth.md:20).

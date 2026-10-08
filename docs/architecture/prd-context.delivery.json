@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "208bec6e-370f-4ed7-8999-09ee1f5f399c",
+  "status": "current",
+  "command": "deliver",
+  "type": "architecture",
+  "input": "/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/docs/architecture/candidate.json",
+  "output": "/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/docs/architecture/prd-context.html",
+  "specification": {
+    "sha256": "69093d88ba889fe1cf0d0daee061da04cf32534f94a06a7cbe424a80cebb6b32",
+    "bytes": 2849
+  },
+  "artifact": {
+    "sha256": "c09efd0d13e8b677fa058269b3ee14522be51c2554c1704f68096154303490e5",
+    "bytes": 757106
+  }
+}

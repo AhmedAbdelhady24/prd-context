@@ -1,0 +1,6 @@
+I’ll use the prd-consult skill to check the current rule for REQ-AUTH-001 and cite its source.
+No. The current approved **REQ-AUTH-001** rule is:
+
+> After 5 failed attempts within 10 minutes, login is locked for 15 minutes.
+
+Source: [auth.md:7–11](/Users/ahmedabdelhady/Desktop/personal_projects/prd-context/auth.md:7).

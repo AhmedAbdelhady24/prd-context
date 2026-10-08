@@ -1,0 +1,86 @@
+A rename of a local variable from `x` to `count` is a pure refactor: it changes an identifier's spelling everywhere it's referenced within its scope, without altering program behavior, output, or side effects.
+
+**What "behavior-preserving" requires:**
+
+1. **Scope correctness** — Only occurrences of `x` that refer to *this* local variable are renamed. Any `x` that is:
+   - a different variable in a nested/shadowing scope,
+   - a parameter name in an unrelated function,
+   - a field/property access like `obj.x`,
+   - a string literal or comment mentioning `"x"`,
+   
+   must be left untouched. A naive find-and-replace on the text `x` would break this — real tooling needs a scope-aware renamer (e.g. an IDE "Rename Symbol" / language server, not `sed`).
+
+2. **All binding-site and use-sites updated consistently** — the declaration (`let x = ...`), every read (`return x + 1`), every write (`x += 1`), and every closure capture of that same variable must change together.
+
+3. **No identifier collisions introduced** — if `count` already exists in the same scope (or an enclosing scope the new name would now shadow/conflict with), the rename would change meaning. A safe rename checks for this and aborts or warns if there's a collision.
+
+4. **No semantic reliance on the name itself** — e.g., reflection, `locals()`/`eval` calls, debuggers, or string-based serialization that references the variable by name as text. These are rare but would make the rename not behavior-preserving.
+
+5. **Nothing else changes** — type, initial value, scope, lifetime, and control flow are identical before and after; only the token spelling differs.
+
+**Example (illustrative only, not a file edit):**
+
+```python
+def total_items(items):
+    x = 0
+    for item in items:
+        x += 1
+    return x
+```
+
+becomes
+
+```python
+def total_items(items):
+    count = 0
+    for item in items:
+        count += 1
+    return count
+```
+
+Every occurrence of the local `x` (declaration, the two uses inside the loop, and the return) is updated; nothing outside that function's scope is touched, and the logic is identical.
+
+Since this is a pure, behavior-preserving refactor, no PRD lookup is needed per the workspace rule ("Pure refactors that preserve behavior do not need a PRD query") — there's no business logic decision involved, just an identifier name change. And per Ask mode, I haven't modified any files; let me know if you'd like me to point you to the actual `x` in a specific file so you can rename it yourself (or switch to Agent mode to have me do it).
+A rename of a local variable from `x` to `count` is a pure refactor: it changes an identifier's spelling everywhere it's referenced within its scope, without altering program behavior, output, or side effects.
+
+**What "behavior-preserving" requires:**
+
+1. **Scope correctness** — Only occurrences of `x` that refer to *this* local variable are renamed. Any `x` that is:
+   - a different variable in a nested/shadowing scope,
+   - a parameter name in an unrelated function,
+   - a field/property access like `obj.x`,
+   - a string literal or comment mentioning `"x"`,
+   
+   must be left untouched. A naive find-and-replace on the text `x` would break this — real tooling needs a scope-aware renamer (e.g. an IDE "Rename Symbol" / language server, not `sed`).
+
+2. **All binding-site and use-sites updated consistently** — the declaration (`let x = ...`), every read (`return x + 1`), every write (`x += 1`), and every closure capture of that same variable must change together.
+
+3. **No identifier collisions introduced** — if `count` already exists in the same scope (or an enclosing scope the new name would now shadow/conflict with), the rename would change meaning. A safe rename checks for this and aborts or warns if there's a collision.
+
+4. **No semantic reliance on the name itself** — e.g., reflection, `locals()`/`eval` calls, debuggers, or string-based serialization that references the variable by name as text. These are rare but would make the rename not behavior-preserving.
+
+5. **Nothing else changes** — type, initial value, scope, lifetime, and control flow are identical before and after; only the token spelling differs.
+
+**Example (illustrative only, not a file edit):**
+
+```python
+def total_items(items):
+    x = 0
+    for item in items:
+        x += 1
+    return x
+```
+
+becomes
+
+```python
+def total_items(items):
+    count = 0
+    for item in items:
+        count += 1
+    return count
+```
+
+Every occurrence of the local `x` (declaration, the two uses inside the loop, and the return) is updated; nothing outside that function's scope is touched, and the logic is identical.
+
+Since this is a pure, behavior-preserving refactor, no PRD lookup is needed per the workspace rule ("Pure refactors that preserve behavior do not need a PRD query") — there's no business logic decision involved, just an identifier name change. And per Ask mode, I haven't modified any files; let me know if you'd like me to point you to the actual `x` in a specific file so you can rename it yourself (or switch to Agent mode to have me do it).

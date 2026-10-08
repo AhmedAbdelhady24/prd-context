@@ -1,0 +1,22 @@
+I’ll explain it with a small arithmetic example. No files will be changed.
+I’m using the eli5 skill to keep the explanation concrete and clear.
+Inlining a temporary variable means replacing its use with the expression that produced its value, then removing the variable.
+
+```js
+// Before
+function calculate(a, b) {
+  const sum = a + b;
+  return sum * 2;
+}
+
+// After
+function calculate(a, b) {
+  return (a + b) * 2;
+}
+```
+
+Both versions add `a` and `b`, then multiply by `2`. The parentheses preserve that order; `a + b * 2` would change the result.
+
+To preserve behavior, keep the same arithmetic operations, evaluation order, and numeric types. A variable used once is the simplest case. Inlining repeated uses can repeat computation, and regrouping floating-point arithmetic can change rounding.
+
+Keep the temporary variable if its name makes the calculation easier to understand. No files were modified.
